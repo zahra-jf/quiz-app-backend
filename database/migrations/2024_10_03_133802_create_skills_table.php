@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,6 +13,7 @@ return new class extends Migration
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('tag');
             $table->integer('duration')->default(10)->comment('in Minutes');
             $table->text('description')->nullable();
             $table->tinyInteger('status')->default(0)->comment('0 - Inactive, 1 - Active');

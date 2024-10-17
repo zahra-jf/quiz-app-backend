@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->text('description');
             $table->unsignedBigInteger('answer_id')->nullable();
             $table->integer('order')->default(0);
-            $table->tinyInteger('status')->default(0);
             $table->string('image')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 class SkillController extends Controller
 {
     private SkillService $skillService;
+
     public function __construct(SkillService $skillService)
     {
         $this->skillService = $skillService;
@@ -19,12 +20,16 @@ class SkillController extends Controller
 
     public function index(SkillIndexRequest $request)
     {
-         return $this->skillService->getSkills();
+        return $this->skillService->getSkills();
     }
 
     public function questions(QuestionIndexRequest $request)
     {
-        return $this->skillService->getQuestions($request['skill_id']);
+        $result = $this->skillService->getQuestions($request['skill_id']);
+        if ($result['success']) {
+            return $this->success(['data' => $result]);
+        }
+        return $this->error($result['message']);
     }
 
 }
