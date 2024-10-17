@@ -8,5 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Result extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
+
+    protected $table = 'results';
+    protected $guarded = [];
 }

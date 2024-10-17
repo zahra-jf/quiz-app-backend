@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -21,7 +20,7 @@ return new class extends Migration
             $table->foreign('question_id')->references('id')->on('questions');
             $table->unsignedBigInteger('option_id');
             $table->foreign('option_id')->references('id')->on('options');
-            $table->boolean('is_correct');
+            $table->boolean('is_correct')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

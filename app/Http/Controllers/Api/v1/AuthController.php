@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function register(Request $request): \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
     {
-         $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -25,7 +25,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if (!$user){
+        if (!$user) {
             return $this->error([
                 'status_code' => 402,
                 'message' => 'Failed to create user',
@@ -45,24 +45,25 @@ class AuthController extends Controller
 
     public function login(Request $request): \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
     {
-          $request->validate([
+        $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-        $user = User::where('email',$request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
         if (!$user) return $this->error([
             'status_code' => 404,
             'message' => "This user doesn't have register yet, please register first"
         ]);
 
-         if(!Hash::check($request['password'],$user->password)){
+        if (!Hash::check($request['password'], $user->password)) {
             return $this->error([
                 'status_code' => 422,
                 'message' => "Invalid Credentials."
             ]);
         }
         $token = $user->createToken('auth_token')->plainTextToken;
+        $user->update(['last_login' => now()]);
         return $this->success([
             'data' => [
                 'user' => $user,

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,9 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('total_questions');
-            $table->integer('total_answers');
-            $table->integer('correct_answers');
-            $table->integer('wrong_answers');
+            $table->integer('total_answers')->nullable();
+            $table->integer('correct_answers')->nullable();
+            $table->integer('wrong_answers')->nullable();
+            $table->timestamp('completed_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
