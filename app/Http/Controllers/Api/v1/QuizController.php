@@ -15,7 +15,12 @@ class QuizController extends Controller
 
     public function answer(QuizAnswerRequest $request)
     {
-        $result = $this->quizService->getQuiz($request['quiz_id'])->checkAnswers($request);
+
+        $quiz = $this->quizService->getQuiz($request['quiz_id']);
+        if (!$quiz) {
+            return $this->error(['message' => 'Quiz not found or answered']);
+        }
+        $result = $this->quizService->setQuiz($quiz)->checkAnswers($request);
         if ($result['success']) {
             return $this->success([
                 'message' => 'Quiz submitted successfully!',

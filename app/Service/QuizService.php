@@ -15,10 +15,11 @@ class QuizService
 
     public function getQuiz(int $quiz_id)
     {
-        $quiz = Quiz::whereNull('completed_at')->where('id', $quiz_id)->first();
-        if ($quiz) {
-            return ['success' => false, 'message' => 'Quiz not found or answered'];
-        }
+        return Quiz::whereNull('completed_at')->where('id', $quiz_id)->first();
+    }
+
+    public function setQuiz(Quiz $quiz)
+    {
         $this->quiz = $quiz;
         return $this;
     }

@@ -21,6 +21,7 @@ class QuizAnswerRequest extends FormRequest
      */
     public function rules(): array
     {
+        logger(request()->all());
         return [
             'quiz_id' => 'required|integer|exists:quizzes,id',
             'answers' => 'required|array',
